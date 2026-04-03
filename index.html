@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Expedições Pantaneiras</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif;min-height:100vh;overflow-x:hidden}
+.sc{min-height:100vh;display:flex;flex-direction:column;animation:fIn .45s ease}
+@keyframes fIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.btn{border:none;border-radius:12px;padding:13px 26px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn:hover{transform:translateY(-2px);filter:brightness(.9)}
+.cbtn{width:100%;text-align:left;border-radius:12px;padding:14px 18px;font-size:14px;font-weight:600;cursor:pointer;border:2px solid transparent;transition:all .2s;font-family:inherit;line-height:1.5}
+.cbtn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.card{background:white;border-radius:18px;padding:22px;box-shadow:0 3px 20px rgba(0,0,0,.09)}
+.exp-card{cursor:pointer;transition:transform .2s,box-shadow .2s;border-radius:18px;overflow:hidden}
+.exp-card:hover{transform:translateY(-4px);box-shadow:0 10px 40px rgba(0,0,0,.15)}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.sUp{animation:sUp .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes sUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.cel{animation:celp .6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes celp{0%{transform:scale(.88)}70%{transform:scale(1.05)}100%{transform:scale(1)}}
+.dot{height:10px;border-radius:5px;transition:all .3s}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+/* ══════════ HELPER ══════════ */
+const $=id=>document.getElementById(id);
+const R=h=>$('root').innerHTML=h;
+const sc=p=>p===10?'#00c853':p===5?'#ff8f00':'#e53935';
+const stars=n=>Array.from({length:3},(_,i)=>`<span style="color:${i<n?'#f9a825':'#e0e0e0'};font-size:14px">★</span>`).join('');
+const dots=()=>EXP.phases.map((_,i)=>`<div class="dot" style="background:${i<G.ph?'white':i===G.ph?'rgba(255,255,255,.95)':'rgba(255,255,255,.28)'};width:${i===G.ph?22:10}px"></div>`).join('');
+const sCol=p=>p===10?'#1b5e20':p===5?'#e65100':'#c62828';
+
+/* ══════════ EXPEDIÇÕES DATA ══════════ */
+const EXPEDITIONS=[
+
+/* ─── 1. BIOGEOQUÍMICA ─── */
+{id:'biogeo',title:'Biogeoquímica do Pantanal',desc:'Investigue como queimadas afetam a química da água de lagoas pantaneiras.',
+icon:'⚗️',diff:3,dlabel:'Avançado',col:'#2e7d32',hbg:'linear-gradient(135deg,#1b5e20,#2e7d32,#388e3c)',bg:'linear-gradient(160deg,#e8f5e9,#f1f8e9 60%,#e0f2f1)',
+phases:[
+{n:1,title:'A Chegada',sub:'Posto de Campo – Rio Paraguai, Cáceres-MT',icon:'🛶',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="b1s" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff7043"/><stop offset="100%" stop-color="#ffcc02"/></linearGradient><linearGradient id="b1r" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1565c0"/><stop offset="100%" stop-color="#0d47a1"/></linearGradient></defs><rect width="340" height="105" fill="url(#b1s)"/><circle cx="170" cy="44" r="28" fill="#fff9c4" opacity=".8"/><circle cx="170" cy="44" r="20" fill="#ffe57f"/><circle cx="170" cy="44" r="12" fill="#ffd740"/><path d="M0,88 Q85,78 170,84 Q255,78 340,86 L340,170 L0,170Z" fill="url(#b1r)"/><line x1="0" y1="112" x2="340" y2="112" stroke="rgba(255,255,255,.25)" stroke-width="1"/><line x1="20" y1="128" x2="90" y2="128" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><line x1="200" y1="135" x2="290" y2="135" stroke="rgba(255,255,255,.25)" stroke-width="1"/><rect x="236" y="58" width="6" height="50" fill="#5d4037"/><rect x="216" y="53" width="46" height="26" rx="4" fill="#8d6e63"/><rect x="220" y="57" width="10" height="8" rx="1" fill="#b0bec5" opacity=".7"/><rect x="234" y="57" width="10" height="8" rx="1" fill="#b0bec5" opacity=".7"/><path d="M196,107 Q216,102 256,106 Q276,109 296,106 L291,120 Q271,124 251,120 Q221,118 201,115Z" fill="#4e342e"/><circle cx="211" cy="111" r="4" fill="#37474f"/><circle cx="281" cy="112" r="4" fill="#37474f"/><line x1="40" y1="107" x2="40" y2="78" stroke="#33691e" stroke-width="4"/><ellipse cx="40" cy="76" rx="20" ry="9" fill="#2e7d32"/><ellipse cx="40" cy="70" rx="16" ry="7" fill="#388e3c"/><line x1="285" y1="107" x2="285" y2="72" stroke="#33691e" stroke-width="4"/><ellipse cx="285" cy="70" rx="20" ry="9" fill="#2e7d32"/><ellipse cx="285" cy="64" rx="16" ry="7" fill="#388e3c"/></svg>',
+nar:'Você acaba de chegar ao Posto de Campo do Rio Paraguai, em Cáceres-MT. Sua missão: investigar como as cinzas das queimadas afetam a química da água do Pantanal. O barqueiro aponta para três locais de coleta. Qual você escolhe primeiro?',
+q:'Onde você faz sua primeira coleta?',
+cs:[{l:'A',t:'A lagoa de água escura próxima ao campo queimado',p:10,e:'✅',tp:'c',fb:'Excelente! Lagoas próximas a áreas queimadas concentram os sinais biogeoquímicos mais fortes. Você já começa com dados relevantes!'},
+{l:'B',t:'O canal principal do Rio Paraguai',p:5,e:'⚠️',tp:'w',fb:'O Rio Paraguai dilui muito os sinais. Você obtém dados, mas a alta vazão mascara os efeitos. Servirá como controle!'},
+{l:'C',t:'Uma nascente afastada, longe do fogo',p:0,e:'❌',tp:'x',fb:'Nascentes afastadas são ótimas como controle — mas não mostram o impacto direto das queimadas. Salve essa coleta para depois!'}]},
+{n:2,title:'O Sensor na Água',sub:'Margem da Lagoa – 07h30',icon:'🔬',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="b2w" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#42a5f5"/><stop offset="100%" stop-color="#0d47a1"/></linearGradient></defs><rect width="340" height="170" fill="#e3f2fd"/><rect y="82" width="340" height="88" fill="url(#b2w)"/><line x1="0" y1="97" x2="340" y2="97" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><line x1="30" y1="114" x2="110" y2="114" stroke="rgba(255,255,255,.3)" stroke-width="1"/><rect x="108" y="14" width="124" height="68" rx="8" fill="white" stroke="#1565c0" stroke-width="2"/><rect x="114" y="20" width="112" height="38" rx="4" fill="#1a237e"/><text x="170" y="33" text-anchor="middle" fill="#40c4ff" font-size="9" font-family="monospace">PARÂMETROS</text><text x="122" y="46" fill="#69f0ae" font-size="9" font-family="monospace">pH: 6.1</text><text x="122" y="57" fill="#ff6d00" font-size="9" font-family="monospace">O₂: 4.5 mg/L</text><text x="122" y="67" fill="#ff6d00" font-size="9" font-family="monospace">T: 28.4°C</text><rect x="158" y="70" width="4" height="18" rx="2" fill="#37474f"/><line x1="160" y1="88" x2="160" y2="158" stroke="#607d8b" stroke-width="3"/><rect x="153" y="136" width="14" height="26" rx="3" fill="#1565c0"/><ellipse cx="88" cy="83" rx="18" ry="3" fill="rgba(180,180,80,.35)"/><ellipse cx="270" cy="84" rx="14" ry="2.5" fill="rgba(180,180,80,.3)"/></svg>',
+nar:'Você mergulha o multissensor na lagoa. A tela mostra: pH 6,1 e oxigênio dissolvido 4,5 mg/L. Uma fina camada de cinzas cobre a superfície. Esses valores são sinal de alerta?',
+q:'O que esses dados significam para a qualidade da água?',
+cs:[{l:'A',t:'Água ligeiramente ácida e com oxigênio baixo — sinal de alerta para peixes',p:10,e:'✅',tp:'c',fb:'Correto! pH 6,1 é ácido (abaixo de 7). Peixes precisam de ≥5 mg/L de O₂ para sobreviver — 4,5 mg/L é crítico! As cinzas contribuem para ambas as alterações.'},
+{l:'B',t:'Água alcalina e bem oxigenada — sem problema',p:0,e:'❌',tp:'x',fb:'Atenção: pH 6,1 é ÁCIDO, não alcalino. E 4,5 mg/L de O₂ é baixo para peixes tropicais. Em lagoas saudáveis do Pantanal esperamos pH 6,5–8,0 e O₂ acima de 5 mg/L.'},
+{l:'C',t:'Valores normais para o Pantanal, sem preocupação',p:0,e:'❌',tp:'x',fb:'Cuidado! O pH ácido e o baixo oxigênio são sinais de estresse. Lagoas pantaneiras saudáveis têm valores mais próximos da neutralidade.'}]},
+{n:3,title:'As Camadas da Lagoa',sub:'Perfil Vertical – 12h00',icon:'📊',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="ep2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#80deea"/><stop offset="100%" stop-color="#4dd0e1"/></linearGradient><linearGradient id="hp2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0277bd"/><stop offset="100%" stop-color="#01579b"/></linearGradient></defs><rect width="340" height="28" fill="#e0f7fa"/><rect y="28" width="340" height="66" fill="url(#ep2)"/><rect y="94" width="340" height="10" fill="rgba(0,0,0,.15)"/><rect y="104" width="340" height="66" fill="url(#hp2)"/><text x="10" y="20" fill="#37474f" font-size="10" font-family="monospace">Superfície</text><text x="10" y="62" fill="white" font-size="10" font-family="monospace" font-weight="bold">EPILÍMNIO – T:30°C O₂:7.2</text><text x="10" y="100" fill="white" font-size="9" font-family="monospace" font-weight="bold">── TERMOCLINA ──</text><text x="10" y="138" fill="#b3e5fc" font-size="10" font-family="monospace" font-weight="bold">HIPOLÍMNIO – T:18°C O₂:0.8</text><rect x="268" y="5" width="62" height="160" rx="4" fill="rgba(0,0,0,.3)"/><rect x="270" y="7" width="58" height="55" rx="3" fill="rgba(30,200,150,.5)"/><rect x="270" y="62" width="58" height="12" rx="2" fill="rgba(255,180,0,.7)"/><rect x="270" y="74" width="58" height="88" rx="3" fill="rgba(0,50,150,.6)"/><text x="299" y="38" text-anchor="middle" fill="white" font-size="8" font-family="monospace">30°C</text><text x="299" y="70" text-anchor="middle" fill="yellow" font-size="9">▼</text><text x="299" y="124" text-anchor="middle" fill="#b3e5fc" font-size="8" font-family="monospace">18°C</text></svg>',
+nar:'Você abaixa o sensor pela lagoa. A temperatura cai de 30°C para 18°C em apenas 3 metros. Oxigênio: 7,2 mg/L em cima, 0,8 mg/L embaixo. Duas camadas radicalmente diferentes!',
+q:'O que explica essa separação em camadas?',
+cs:[{l:'A',t:'É a termoclina — epilímnio quente (O₂ alto) e hipolímnio frio (anóxico)',p:10,e:'✅',tp:'c',fb:'Perfeito! A termoclina é a zona de transição abrupta de temperatura. O epilímnio é oxigenado pela fotossíntese. O hipolímnio consome O₂ na decomposição e fica anóxico — é onde o metano é produzido!'},
+{l:'B',t:'É uma corrente subterrânea de água gelada do lençol freático',p:0,e:'❌',tp:'x',fb:'Não! Essa separação é estratificação térmica natural. A água quente (menos densa) fica em cima, a fria (mais densa) embaixo. Ocorre naturalmente pelo aquecimento solar.'},
+{l:'C',t:'É a termoclina, causada pela contaminação das cinzas',p:5,e:'⚠️',tp:'w',fb:'Você acertou o nome termoclina! Mas a estratificação é natural — não causada pela contaminação. As cinzas afetam a química, mas a separação física ocorre pelo aquecimento solar.'}]},
+{n:4,title:'A Floração Verde',sub:'Baía do Campo Queimado – 3º Dia',icon:'🦠',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#69f0ae"/><stop offset="50%" stop-color="#00e676"/><stop offset="100%" stop-color="#00897b"/></linearGradient></defs><rect width="340" height="170" fill="#e8f5e9"/><rect y="46" width="340" height="124" fill="url(#bl2)"/><ellipse cx="50" cy="48" rx="34" ry="12" fill="#1b5e20" opacity=".8"/><ellipse cx="150" cy="44" rx="55" ry="13" fill="#2e7d32" opacity=".9"/><ellipse cx="270" cy="50" rx="44" ry="11" fill="#1b5e20" opacity=".75"/><ellipse cx="100" cy="51" rx="30" ry="8" fill="#33691e" opacity=".7"/><ellipse cx="220" cy="47" rx="40" ry="9" fill="#1b5e20" opacity=".8"/><rect x="215" y="6" width="118" height="34" rx="8" fill="white" stroke="#2e7d32" stroke-width="1.5"/><text x="274" y="19" text-anchor="middle" fill="#2e7d32" font-size="9" font-family="monospace" font-weight="bold">ALERTA</text><text x="222" y="29" fill="#c62828" font-size="9" font-family="monospace">Fósforo: 0.28 mg/L</text><text x="222" y="38" fill="#e65100" font-size="8" font-family="monospace">↑ 4× acima do normal</text><rect x="8" y="6" width="110" height="34" rx="8" fill="rgba(0,0,0,.65)"/><text x="63" y="19" text-anchor="middle" fill="#69f0ae" font-size="9" font-family="monospace">Cianobactérias</text><text x="63" y="29" text-anchor="middle" fill="#b9f6ca" font-size="8" font-family="monospace">Floração ativa</text><text x="63" y="38" text-anchor="middle" fill="#ff6d00" font-size="8" font-family="monospace">⚠ Possível toxina</text></svg>',
+nar:'Na manhã do 3º dia a lagoa amanheceu verde-azulada. Cheiro forte de terra molhada. O sensor detecta fósforo total em 0,28 mg/L — quatro vezes acima do normal. O que aconteceu?',
+q:'Qual processo explica essa transformação da lagoa?',
+cs:[{l:'A',t:'Cinzas liberaram fósforo → eutrofização → floração de cianobactérias',p:10,e:'✅',tp:'c',fb:'Excelente! Cinzas são ricas em fósforo e potássio. Ao chegarem à água, fertilizam as cianobactérias explosivamente — eutrofização! Elas produzem cianotoxinas perigosas para peixes, bovinos e água de abastecimento.'},
+{l:'B',t:'É uma alga verde inofensiva, fenômeno natural em lagoas',p:0,e:'❌',tp:'x',fb:'Cuidado! A coloração verde-azulada, o cheiro e o fósforo elevado indicam cianobactérias — bactérias fotossintéticas que podem ser tóxicas. Não é alga, nem fenômeno natural comum!'},
+{l:'C',t:'A cor é barro e argila suspensa pela chuva recente',p:0,e:'❌',tp:'x',fb:'Barro e argila deixam a água marrom-turva, não verde-azulada. A coloração viva, o cheiro e o fósforo 4× acima do normal confirmam floração de cianobactérias por eutrofização.'}]},
+{n:5,title:'O Metano Invisível',sub:'Câmara Flutuante – 14h00',icon:'⚗️',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="b5w" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4dd0e1"/><stop offset="100%" stop-color="#006064"/></linearGradient></defs><rect width="340" height="66" fill="#f3e5f5"/><rect y="66" width="340" height="104" fill="url(#b5w)"/><rect x="98" y="38" width="144" height="50" rx="8" fill="rgba(255,255,255,.92)" stroke="#7b1fa2" stroke-width="2"/><rect x="104" y="44" width="132" height="26" rx="4" fill="#4a148c"/><text x="170" y="55" text-anchor="middle" fill="#ea80fc" font-size="8" font-family="monospace">CÂMARA FLUTUANTE</text><text x="110" y="66" fill="#69f0ae" font-size="8" font-family="monospace">CH₄: 45 mmol/m²/dia</text><text x="110" y="76" fill="#ff6d00" font-size="8" font-family="monospace">CO₂: 12 mmol/m²/dia</text><circle cx="88" cy="70" r="6" fill="rgba(255,255,255,.85)" stroke="#7b1fa2" stroke-width="1.5"/><circle cx="252" cy="68" r="6" fill="rgba(255,255,255,.85)" stroke="#7b1fa2" stroke-width="1.5"/><circle cx="78" cy="96" r="5" fill="rgba(255,255,255,.6)"/><circle cx="153" cy="91" r="4" fill="rgba(255,255,255,.6)"/><circle cx="228" cy="102" r="6" fill="rgba(255,255,255,.6)"/><circle cx="288" cy="91" r="4" fill="rgba(255,255,255,.6)"/><line x1="78" y1="170" x2="78" y2="96" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-dasharray="4,3"/><line x1="153" y1="170" x2="153" y2="91" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-dasharray="4,3"/><line x1="228" y1="170" x2="228" y2="102" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-dasharray="4,3"/><rect x="0" y="152" width="340" height="18" fill="#4e342e" opacity=".7"/><text x="170" y="164" text-anchor="middle" fill="#bcaaa4" font-size="8" font-family="monospace">sedimento anóxico</text></svg>',
+nar:'Câmara flutuante sobre a lagoa. O analisador registra fluxo de CH₄ de 45 mmol/m²/dia — muito acima da média. Bolhas sobem do sedimento escuro. Por que essa lagoa emite tanto metano?',
+q:'Qual é a origem principal do metano nessa lagoa?',
+cs:[{l:'A',t:'Archaea no sedimento decompõem matéria orgânica sem O₂ — metanogênese anaeróbia',p:10,e:'✅',tp:'c',fb:'Perfeito! Em sedimentos anóxicos, archaea metanogênicas decompõem matéria orgânica e liberam CH₄. As cinzas aumentaram o aporte de matéria orgânica, intensificando o processo. Lagoas rasas do Pantanal são fontes importantes de metano!'},
+{l:'B',t:'A água quente evapora e carrega metano do ar atmosférico',p:0,e:'❌',tp:'x',fb:'O CH₄ vem do sedimento, não do ar! A concentração de CH₄ na água é maior do que no ar — o fluxo vai da água para a atmosfera, não o contrário.'},
+{l:'C',t:'São gases da decomposição de animais mortos na superfície',p:5,e:'⚠️',tp:'w',fb:'Animais mortos contribuem um pouco, mas o principal produtor é a atividade microbiana no sedimento anóxico. As cinzas intensificaram o processo ao aumentar a matéria orgânica disponível.'}]},
+{n:6,title:'A Queimada Avança',sub:'Frente de Fogo – 3ª Semana',icon:'🔥',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="b6s" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#424242"/><stop offset="60%" stop-color="#795548"/><stop offset="100%" stop-color="#ff6f00"/></linearGradient><linearGradient id="b6w" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#80cbc4"/><stop offset="100%" stop-color="#00695c"/></linearGradient></defs><rect width="340" height="108" fill="url(#b6s)"/><rect y="108" width="340" height="62" fill="url(#b6w)"/><path d="M0,93 Q30,70 55,80 Q80,58 110,73 Q140,48 165,64 Q188,44 210,62 Q235,50 260,68 Q285,56 312,76 L340,82 L340,108 L0,108Z" fill="#e65100"/><circle cx="60" cy="52" r="18" fill="#ff9800" opacity=".7"/><circle cx="60" cy="52" r="11" fill="#ff6d00" opacity=".8"/><circle cx="130" cy="46" r="16" fill="#ff6d00" opacity=".7"/><circle cx="205" cy="40" r="20" fill="#ff9800" opacity=".6"/><circle cx="270" cy="48" r="15" fill="#ff6d00" opacity=".65"/><line x1="100" y1="0" x2="80" y2="108" stroke="rgba(80,80,80,.4)" stroke-width="8"/><line x1="180" y1="0" x2="162" y2="108" stroke="rgba(80,80,80,.35)" stroke-width="12"/><line x1="255" y1="0" x2="248" y2="108" stroke="rgba(80,80,80,.3)" stroke-width="6"/><circle cx="140" cy="130" r="3" fill="rgba(100,100,100,.55)"/><circle cx="180" cy="123" r="2" fill="rgba(100,100,100,.5)"/><circle cx="220" cy="136" r="3" fill="rgba(100,100,100,.55)"/></svg>',
+nar:'Nova frente de fogo avança pelo campo. Dois dias depois, toneladas de cinzas chegam à lagoa pelo vento e pela chuva. Você refaz todas as medições. O que espera encontrar?',
+q:'Quais mudanças químicas você espera após o aporte de cinzas?',
+cs:[{l:'A',t:'pH mais alto, fósforo e nitrogênio elevados, nova floração + aumento de CH₄',p:10,e:'✅',tp:'c',fb:'Exatamente! Cinzas são alcalinas (elevam o pH) e ricas em nutrientes. O aporte massivo desencadeia nova eutrofização, favorece cianobactérias e intensifica o CH₄. Estudos no Pantanal registram aumentos de 200–400% no fósforo após queimadas!'},
+{l:'B',t:'A água fica mais limpa — cinzas absorvem poluentes e purificam',p:0,e:'❌',tp:'x',fb:'As cinzas fazem o oposto! Liberam nutrientes, elevam o pH e adicionam matéria orgânica. Longe de limpar, intensificam a eutrofização e as emissões de gases.'},
+{l:'C',t:'Nada muda significativamente — lagoas tamponam as cinzas',p:0,e:'❌',tp:'x',fb:'Lagoas rasas e fechadas do Pantanal têm baixa capacidade tampão. O efeito das cinzas é amplificado exatamente porque não há diluição como em rios.'}]},
+{n:7,title:'A Cheia Chega',sub:'Planície Alagável – Estação Chuvosa',icon:'🌊',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="b7w" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#81d4fa"/><stop offset="100%" stop-color="#0277bd"/></linearGradient></defs><rect width="340" height="58" fill="#bbdefb"/><path d="M0,48 Q35,34 70,42 Q110,30 150,40 Q190,30 230,40 Q270,32 310,42 L340,46 L340,64 L0,64Z" fill="#90caf9"/><rect y="58" width="340" height="112" fill="url(#b7w)"/><line x1="0" y1="74" x2="340" y2="74" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><line x1="20" y1="92" x2="90" y2="92" stroke="rgba(255,255,255,.3)" stroke-width="1"/><line x1="150" y1="108" x2="240" y2="108" stroke="rgba(255,255,255,.3)" stroke-width="1"/><line x1="40" y1="170" x2="40" y2="58" stroke="#33691e" stroke-width="4"/><ellipse cx="40" cy="56" rx="20" ry="9" fill="#2e7d32"/><line x1="100" y1="170" x2="100" y2="64" stroke="#2e7d32" stroke-width="3.5"/><ellipse cx="100" cy="62" rx="18" ry="8" fill="#1b5e20"/><line x1="248" y1="170" x2="248" y2="56" stroke="#33691e" stroke-width="4"/><ellipse cx="248" cy="54" rx="22" ry="10" fill="#2e7d32"/><line x1="298" y1="170" x2="298" y2="66" stroke="#2e7d32" stroke-width="3"/><ellipse cx="298" cy="64" rx="15" ry="7" fill="#1b5e20"/><rect x="140" y="16" width="130" height="34" rx="6" fill="rgba(255,255,255,.9)" stroke="#0277bd" stroke-width="1.5"/><text x="205" y="29" text-anchor="middle" fill="#0277bd" font-size="9" font-family="monospace" font-weight="bold">COD na água</text><text x="148" y="40" fill="#37474f" font-size="9" font-family="monospace">Antes: 12 mg/L</text><text x="148" y="49" fill="#c62828" font-size="9" font-family="monospace">Depois: 38 mg/L ↑</text></svg>',
+nar:'A estação chuvosa chegou. O Rio Paraguai sobe 4 metros e inunda a planície. O carbono orgânico dissolvido (COD) saltou de 12 para 38 mg/L. Esse carbono veio de onde?',
+q:'O que explica o grande aumento de carbono orgânico dissolvido?',
+cs:[{l:'A',t:'A cheia lixivia matéria orgânica do solo seco e da vegetação inundada',p:10,e:'✅',tp:'c',fb:'Perfeito! Quando o solo seco é inundado, compostos orgânicos são liberados — isso é lixiviação. A vegetação submersa decompõe e libera carbono. É o "pulso de inundação" de Junk et al. (1989) — motor da produtividade pantaneira!'},
+{l:'B',t:'A fotossíntese intensa das plantas aquáticas produz mais carbono dissolvido',p:0,e:'❌',tp:'x',fb:'A fotossíntese consome CO₂ e produz biomassa — não eleva o COD diretamente. O aumento vem da lixiviação e decomposição do solo inundado, processo físico-químico imediato.'},
+{l:'C',t:'Poluição de cidades rio acima, carregada pelo aumento do rio',p:5,e:'⚠️',tp:'w',fb:'Contribuição urbana existe, mas é pequena nessa região. O COD pantaneiro tem assinatura isotópica de carbono terrestre local. A lixiviação natural explica a maior parte do aumento.'}]}
+]},
+
+/* ─── 2. FAUNA PANTANEIRA ─── */
+{id:'fauna',title:'Fauna Pantaneira',desc:'Identifique espécies, compreenda relações ecológicas e decida sobre conservação no Pantanal.',
+icon:'🐊',diff:2,dlabel:'Intermediário',col:'#5d4037',hbg:'linear-gradient(135deg,#3e2723,#5d4037,#795548)',bg:'linear-gradient(160deg,#efebe9,#fbe9e7 60%,#fff8e1)',
+phases:[
+{n:1,title:'Rastros na Lama',sub:'Margem do Corixo – Amanhecer',icon:'🐾',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><rect width="340" height="170" fill="#a1887f"/><rect y="90" width="340" height="80" fill="#6d4c41"/><ellipse cx="170" cy="90" rx="200" ry="15" fill="#795548"/><g fill="#4e342e" opacity=".85"><ellipse cx="60" cy="75" rx="12" ry="9"/><ellipse cx="52" cy="64" rx="6" ry="4"/><ellipse cx="68" cy="64" rx="6" ry="4"/><ellipse cx="48" cy="56" rx="5" ry="3.5"/><ellipse cx="72" cy="56" rx="5" ry="3.5"/></g><g fill="#4e342e" opacity=".85"><ellipse cx="140" cy="80" rx="14" ry="10"/><ellipse cx="130" cy="67" rx="7" ry="5"/><ellipse cx="150" cy="67" rx="7" ry="5"/><ellipse cx="125" cy="58" rx="6" ry="4"/><ellipse cx="155" cy="58" rx="6" ry="4"/></g><g fill="#3e2723" opacity=".9"><ellipse cx="230" cy="72" rx="10" ry="8"/><ellipse cx="220" cy="62" rx="8" ry="5"/><ellipse cx="240" cy="62" rx="8" ry="5"/></g><g fill="#3e2723" opacity=".9"><ellipse cx="295" cy="78" rx="10" ry="8"/><ellipse cx="285" cy="68" rx="8" ry="5"/><ellipse cx="305" cy="68" rx="8" ry="5"/></g><line x1="0" y1="120" x2="340" y2="120" stroke="#5d4037" stroke-width="1" opacity=".5"/><text x="64" y="102" text-anchor="middle" fill="#bcaaa4" font-size="9" font-family="monospace">rastro A</text><text x="142" y="108" text-anchor="middle" fill="#bcaaa4" font-size="9" font-family="monospace">rastro B</text><text x="232" y="100" text-anchor="middle" fill="#bcaaa4" font-size="9" font-family="monospace">rastro C</text><rect x="5" y="5" width="155" height="42" rx="6" fill="rgba(0,0,0,.55)"/><text x="82" y="18" text-anchor="middle" fill="#ffcc80" font-size="9" font-family="monospace">RASTRO B – 4 dedos</text><text x="82" y="29" text-anchor="middle" fill="#ffcc80" font-size="9" font-family="monospace">Diâmetro: 12 cm</text><text x="82" y="40" text-anchor="middle" fill="#ffcc80" font-size="9" font-family="monospace">Sem garra visível</text></svg>',
+nar:'Amanhecer na margem do corixo. A lama úmida guarda rastros de pelo menos três espécies diferentes que beberam água durante a noite. O rastro B chama a atenção: 4 dedos, ~12 cm de diâmetro, sem marcas de garra. Qual animal deixou esse rastro?',
+q:'De qual espécie é o rastro B?',
+cs:[{l:'A',t:'Anta (Tapirus terrestris) — maior mamífero terrestre do Brasil',p:10,e:'✅',tp:'c',fb:'Correto! A anta tem patas tridátilas (3 dedos) atrás e tetradátilas (4 dedos) na frente, com pegadas arredondadas e grandes. Sem garras visíveis. Frequenta margens de rios e corixos para se refrescar e se alimentar.'},
+{l:'B',t:'Onça-pintada (Panthera onca) — felino topo de cadeia',p:0,e:'❌',tp:'x',fb:'A onça-pintada tem rastros de 4 a 5 dedos com almofadas plantares e, em geral, sem marcas de garra (retraídas). Mas o tamanho da pegada de onça é menor (7–9 cm) e a forma é mais circular. O rastro B de 12 cm indica anta.'},
+{l:'C',t:'Capivara (Hydrochoerus hydrochaeris) — maior roedor do mundo',p:5,e:'⚠️',tp:'w',fb:'Capivara tem 4 dedos na frente e 3 atrás, com palmação entre os dedos. As pegadas são menores (6–8 cm) e mais estreitas. O rastro B de 12 cm sem marca de garra aponta para anta — maior que a capivara!'}]},
+{n:2,title:'O Ninho do Tuiuiú',sub:'Cordilheira do Boi Preto – 8h00',icon:'🐦',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><rect width="340" height="170" fill="#e8f5e9"/><rect y="130" width="340" height="40" fill="#a5d6a7"/><line x1="170" y1="170" x2="170" y2="40" stroke="#5d4037" stroke-width="8"/><line x1="170" y1="170" x2="145" y2="135" stroke="#5d4037" stroke-width="6"/><line x1="170" y1="170" x2="195" y2="138" stroke="#5d4037" stroke-width="6"/><ellipse cx="170" cy="38" rx="38" ry="18" fill="#795548"/><ellipse cx="170" cy="36" rx="30" ry="14" fill="#6d4c41"/><circle cx="157" cy="28" r="5" fill="#4e342e"/><circle cx="183" cy="28" r="5" fill="#4e342e"/><circle cx="170" cy="30" r="4" fill="#fff9c4"/><line x1="155" y1="20" x2="145" y2="6" stroke="#263238" stroke-width="3"/><line x1="185" y1="20" x2="195" y2="6" stroke="#263238" stroke-width="3"/><ellipse cx="145" cy="4" rx="8" ry="6" fill="#263238"/><ellipse cx="195" cy="4" rx="8" ry="6" fill="#263238"/><line x1="140" y1="4" x2="130" y2="4" stroke="#263238" stroke-width="2"/><line x1="200" y1="4" x2="210" y2="4" stroke="#263238" stroke-width="2"/><rect x="60" y="100" width="100" height="26" rx="6" fill="rgba(0,0,0,.6)"/><text x="110" y="114" text-anchor="middle" fill="#a5d6a7" font-size="9" font-family="monospace">Jabiru mycteria</text><text x="110" y="123" text-anchor="middle" fill="#ffcc80" font-size="8" font-family="monospace">Ave símbolo do Pantanal</text></svg>',
+nar:'No alto de uma árvore morta, um par de tuiuiús (Jabiru mycteria) cuida de um ninho enorme de gravetos. São a ave símbolo do Pantanal, com pescoço vermelho e branco inconfundível. Por que constroem o ninho tão alto?',
+q:'Por que o tuiuiú nidifica no topo de árvores altas?',
+cs:[{l:'A',t:'Para proteger ovos e filhotes de predadores terrestres e das inundações sazonais',p:10,e:'✅',tp:'c',fb:'Exato! A altura protege dos predadores (onças, animais terrestres) e garante que o ninho não seja inundado durante as cheias. O tuiuiú pode usar o mesmo ninho por anos, aumentando-o anualmente — eles chegam a pesar centenas de quilos!'},
+{l:'B',t:'Para estar mais próximo do sol e aquecer os ovos',p:0,e:'❌',tp:'x',fb:'O aquecimento solar não explica a altura — o sol esquenta igualmente a qualquer nível. A escolha da altura é estratégica: proteção contra predadores terrestres e contra as cheias periódicas do Pantanal.'},
+{l:'C',t:'Para ter melhor visão e detectar peixes na água abaixo',p:5,e:'⚠️',tp:'w',fb:'A visão para localizar peixes seria uma vantagem, mas não é a principal razão para nidificar tão alto. A proteção contra predadores e inundações é a explicação ecológica mais robusta para esse comportamento.'}]},
+{n:3,title:'A Onça no Rio',sub:'Baía das Pedras – Tarde',icon:'🐆',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="f3w" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4dd0e1"/><stop offset="100%" stop-color="#0097a7"/></linearGradient></defs><rect width="340" height="100" fill="#e8f5e9"/><rect y="100" width="340" height="70" fill="url(#f3w)"/><path d="M0,90 Q60,78 120,84 Q180,78 240,84 Q290,80 340,86 L340,105 L0,105Z" fill="#388e3c"/><g transform="translate(80,82)"><ellipse cx="0" cy="-5" rx="25" ry="14" fill="#f4a028"/><ellipse cx="22" cy="-14" rx="10" ry="8" fill="#f4a028"/><circle cx="28" cy="-18" r="6" fill="#f4a028"/><circle cx="25" cy="-20" r="2.5" fill="#3e2723"/><ellipse cx="-5" cy="-18" rx="4" ry="6" fill="#3e2723" opacity=".4"/><ellipse cx="15" cy="-18" rx="4" ry="6" fill="#3e2723" opacity=".4"/><g fill="#3e2723" opacity=".7"><circle cx="-12" cy="-8" r="3"/><circle cx="0" cy="-2" r="3"/><circle cx="12" cy="-6" r="3"/><circle cx="6" cy="-16" r="2.5"/><circle cx="-6" cy="-14" r="2.5"/></g></g><circle cx="190" cy="122" r="8" fill="#f4a028" opacity=".4"/><circle cx="210" cy="130" r="6" fill="#f4a028" opacity=".35"/><rect x="175" y="5" width="155" height="36" rx="6" fill="rgba(0,0,0,.6)"/><text x="252" y="18" text-anchor="middle" fill="#ffcc80" font-size="9" font-family="monospace">Panthera onca</text><text x="252" y="29" text-anchor="middle" fill="#a5d6a7" font-size="8" font-family="monospace">Fêmea estimada: 80kg</text><text x="252" y="38" text-anchor="middle" fill="#a5d6a7" font-size="8" font-family="monospace">Rosetas típicas</text></svg>',
+nar:'Uma onça-pintada fêmea está na margem de uma baía, pescando piranhas com as patas. Comportamento raramente filmado. O que torna a onça-pintada do Pantanal diferente das onças de outros biomas?',
+q:'Qual característica ecológica distingue a onça-pintada pantaneira?',
+cs:[{l:'A',t:'É maior e mais aquática — frequentemente pesca peixes, jacarés e ariranhas',p:10,e:'✅',tp:'c',fb:'Correto! As onças do Pantanal são as maiores do mundo (machos até 120 kg), adaptadas ao ambiente aquático. Aqui elas caçam muito mais peixes, jacarés e capivaras do que onças da Amazônia, que preferem mamíferos terrestres. O Pantanal tem a maior densidade de onças do planeta!'},
+{l:'B',t:'É menor e come principalmente pequenos mamíferos e aves',p:0,e:'❌',tp:'x',fb:'Na verdade, a onça pantaneira é a maior subpopulação conhecida — não a menor! O Pantanal oferece presas aquáticas abundantes, selecionando indivíduos maiores e mais habilidosos na água.'},
+{l:'C',t:'Não sabe nadar e caca exclusivamente em terra firme',p:0,e:'❌',tp:'x',fb:'Pelo contrário! A onça-pintada é excelente nadadora. No Pantanal, frequentemente atravessa baías e rios, pesca ativamente e persegue presas na água. É essa adaptabilidade que a torna o super-predador mais versátil das Américas.'}]},
+{n:4,title:'A Piracema',sub:'Rio Paraguai – Novembro',icon:'🐟',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="f4r" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#29b6f6"/><stop offset="100%" stop-color="#0277bd"/></linearGradient></defs><rect width="340" height="50" fill="#e3f2fd"/><rect y="50" width="340" height="120" fill="url(#f4r)"/><line x1="0" y1="70" x2="340" y2="70" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><line x1="0" y1="95" x2="340" y2="95" stroke="rgba(255,255,255,.2)" stroke-width="1"/><g fill="#f57f17"><path d="M60,65 L75,55 L80,65 L75,70Z"/><path d="M110,58 L128,44 L134,58 L128,64Z"/><path d="M170,62 L186,50 L192,62 L186,68Z"/><path d="M225,56 L241,44 L247,56 L241,62Z"/><path d="M280,60 L296,48 L302,60 L296,66Z"/></g><g fill="#ef6c00"><path d="M85,80 L96,72 L100,80 L96,85Z"/><path d="M145,76 L157,66 L162,76 L157,82Z"/><path d="M200,82 L213,72 L218,82 L213,88Z"/><path d="M252,78 L265,68 L270,78 L265,84Z"/></g><g fill="#e65100"><path d="M40,100 L50,92 L54,100 L50,106Z"/><path d="M130,96 L141,88 L145,96 L141,102Z"/><path d="M310,98 L320,90 L324,98 L320,104Z"/></g><rect x="5" y="5" width="190" height="38" rx="6" fill="rgba(0,0,0,.6)"/><text x="100" y="18" text-anchor="middle" fill="#fff9c4" font-size="9" font-family="monospace">PIRACEMA ativa</text><text x="100" y="29" text-anchor="middle" fill="#a5d6a7" font-size="8" font-family="monospace">Dourado: migração reprodutiva</text><text x="100" y="39" text-anchor="middle" fill="#a5d6a7" font-size="8" font-family="monospace">Distância: até 2.000 km</text></svg>',
+nar:'Novembro no Rio Paraguai. Milhares de dourados (Salminus brasiliensis) saltam contra a correnteza em migração reprodutiva. É a piracema. Pássaros, ariranhas e onças estão às margens. Qual é a importância ecológica e econômica da piracema?',
+q:'O que representa ecologicamente a piracema no Pantanal?',
+cs:[{l:'A',t:'Migração reprodutiva que alimenta toda a cadeia trófica e sustenta a pesca artesanal',p:10,e:'✅',tp:'c',fb:'Perfeito! A piracema é o maior evento de concentração de pesca do Pantanal. Alimenta onças, ariranhas, tuiuiús, garças e sustenta centenas de famílias. Os ovos fertilizados transportam nutrientes para toda a planície alagável. Por isso o período de piracema tem restrições de pesca.'},
+{l:'B',t:'Mortandade anual de peixes causada pela seca e pelo calor',p:0,e:'❌',tp:'x',fb:'A piracema é migração reprodutiva ativa — não mortandade! Os peixes migram contra a correnteza para desovar em locais específicos de cabeceira. É um sinal de saúde do ecossistema, não de problema.'},
+{l:'C',t:'Competição territorial entre espécies de peixes por espaço nos rios',p:0,e:'❌',tp:'x',fb:'A piracema é cooperação reprodutiva, não competição territorial. É uma migração sincronizada por estímulos hidrológicos (subida das águas) e hormonais. Diferentes espécies migram ao mesmo tempo sem competição interespecífica direta.'}]},
+{n:5,title:'Capivara e Jacaré',sub:'Baía Funda – Entardecer',icon:'🐊',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="f5w" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4dd0e1"/><stop offset="100%" stop-color="#006064"/></linearGradient></defs><rect width="340" height="170" fill="#e8f5e9"/><rect y="100" width="340" height="70" fill="url(#f5w)"/><path d="M0,92 Q85,82 170,88 Q255,82 340,90 L340,104 L0,104Z" fill="#a5d6a7"/><g transform="translate(55,86)"><ellipse cx="0" cy="0" rx="16" ry="9" fill="#6d4c41"/><ellipse cx="14" cy="-4" rx="7" ry="6" fill="#6d4c41"/><circle cx="18" cy="-6" r="4" fill="#5d4037"/></g><g transform="translate(130,86)"><ellipse cx="0" cy="0" rx="16" ry="9" fill="#6d4c41"/><ellipse cx="14" cy="-4" rx="7" ry="6" fill="#6d4c41"/><circle cx="18" cy="-6" r="4" fill="#5d4037"/></g><g transform="translate(220,90)"><path d="M-30,0 Q0,-8 30,-2 Q20,6 -30,6Z" fill="#2e7d32"/><circle cx="24" cy="-3" r="3" fill="#1b5e20"/><path d="M-30,0 Q-10,4 30,-2" stroke="#1b5e20" stroke-width="1.5" fill="none"/><path d="M-30,6 L-38,0 L-30,0Z" fill="#33691e"/></g><g transform="translate(265,94)"><path d="M-25,0 Q0,-7 25,-2 Q18,5 -25,5Z" fill="#388e3c"/><circle cx="20" cy="-3" r="2.5" fill="#1b5e20"/></g><line x1="0" y1="118" x2="340" y2="118" stroke="rgba(255,255,255,.3)" stroke-width="1"/><rect x="5" y="5" width="200" height="38" rx="6" fill="rgba(0,0,0,.55)"/><text x="105" y="18" text-anchor="middle" fill="#fff9c4" font-size="9" font-family="monospace">Capivara + Jacaré convivendo</text><text x="105" y="29" text-anchor="middle" fill="#a5d6a7" font-size="8" font-family="monospace">Distância entre eles: ~3 metros</text><text x="105" y="39" text-anchor="middle" fill="#ffcc80" font-size="8" font-family="monospace">Capivaras não demonstram medo</text></svg>',
+nar:'Na margem da baía, capivaras pastam tranquilamente a 3 metros de jacarés que tomam sol. Sem fuga, sem pânico. Um comportamento que intriga visitantes. Por que essa convivência aparente é possível?',
+q:'Por que capivaras e jacarés coexistem tão próximos?',
+cs:[{l:'A',t:'Jacarés preferem peixes; só atacam capivaras oportunisticamente, então a convivência próxima é normal',p:10,e:'✅',tp:'c',fb:'Correto! O jacaré-do-pantanal (Caiman yacare) tem dieta predominante de peixes (60–70%). Capivaras adultas são grandes demais para ataques fáceis. Mas filhotes e animais debilitados são vulneráveis. No Pantanal, a abundância de presas fáceis reduz a pressão sobre a capivara.'},
+{l:'B',t:'Existe simbiose: a capivara limpa ectoparasitas do jacaré',p:5,e:'⚠️',tp:'w',fb:'Interessante hipótese, mas não há evidências científicas sólidas de simbiose formal entre capivara e jacaré. O que ocorre é tolerância mútua baseada na fartura de recursos e no risco-benefício de cada ataque.'},
+{l:'C',t:'Capivaras adultas são grandes demais para jacarés atacarem',p:0,e:'❌',tp:'x',fb:'Jacarés grandes do Pantanal (>2 m) são capazes de atacar capivaras adultas, especialmente na água. A razão principal da convivência é a disponibilidade de presas mais fáceis (peixes) e a predação ser oportunística, não preferencial.'}]},
+{n:6,title:'A Arara-Azul',sub:'Carandazal do Porto – Manhã',icon:'🦜',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><rect width="340" height="170" fill="#e3f2fd"/><rect y="130" width="340" height="40" fill="#c8e6c9"/><line x1="170" y1="170" x2="170" y2="30" stroke="#5d4037" stroke-width="10"/><line x1="170" y1="170" x2="140" y2="130" stroke="#5d4037" stroke-width="7"/><line x1="170" y1="170" x2="200" y2="132" stroke="#5d4037" stroke-width="7"/><ellipse cx="120" cy="45" rx="22" ry="40" fill="#5d4037" opacity=".7"/><ellipse cx="220" cy="50" rx="18" ry="35" fill="#5d4037" opacity=".65"/><rect x="145" y="52" width="24" height="28" rx="4" fill="#4e342e"/><g transform="translate(196,42)"><ellipse cx="0" cy="0" rx="16" ry="10" fill="#1565c0"/><ellipse cx="16" cy="-2" rx="10" ry="7" fill="#1565c0"/><circle cx="24" cy="-4" r="5" fill="#0d47a1"/><ellipse cx="20" cy="-8" rx="4" ry="7" fill="#1a237e"/><line x1="24" y1="-2" x2="34" y2="-2" stroke="#ffd740" stroke-width="3"/><circle cx="20" cy="-5" r="2" fill="#ffd740"/><line x1="-2" y1="10" x2="-2" y2="20" stroke="#1565c0" stroke-width="2"/><line x1="10" y1="10" x2="10" y2="20" stroke="#1565c0" stroke-width="2"/></g><rect x="5" y="5" width="180" height="38" rx="6" fill="rgba(0,0,0,.6)"/><text x="95" y="18" text-anchor="middle" fill="#82b1ff" font-size="9" font-family="monospace">Anodorhynchus hyacinthinus</text><text x="95" y="29" text-anchor="middle" fill="#a5d6a7" font-size="8" font-family="monospace">VU – Vulnerável (IUCN)</text><text x="95" y="39" text-anchor="middle" fill="#ffcc80" font-size="8" font-family="monospace">Maior arara do mundo</text></svg>',
+nar:'Uma arara-azul (Anodorhynchus hyacinthinus) entra em um oco de manduvi para alimentar filhotes. É a maior arara do mundo e esteve próxima da extinção nos anos 80. O que a conecta essencialmente à árvore manduvi?',
+q:'Por que a arara-azul depende do manduvi para sua conservação?',
+cs:[{l:'A',t:'Aninha quase exclusivamente em ocos de manduvi e se alimenta de seus cocos — relação obrigatória',p:10,e:'✅',tp:'c',fb:'Exato! A arara-azul prefere fortemente o manduvi (Sterculia apetala) para nidificação — 95% dos ninhos encontrados são nessa espécie. Também consome seus cocos. Por isso, a conservação da arara-azul exige a proteção do manduvi. O programa de conservação da Hyacinth Macaw Institute instalou ninhos artificiais onde manduvis são escassos.'},
+{l:'B',t:'O manduvi produz frutos azuis que atraem a arara pela cor',p:0,e:'❌',tp:'x',fb:'A arara-azul não busca o manduvi pela cor dos frutos (que são alaranjados quando maduros). A relação é de nidificação — a árvore fornece ocos naturais de tamanho adequado — e de alimentação dos cocos duros que só ela consegue quebrar com o bico poderoso.'},
+{l:'C',t:'O manduvi é a árvore mais alta do Pantanal, dando maior visibilidade ao ninho',p:0,e:'❌',tp:'x',fb:'A altura não é o fator determinante. A relação da arara-azul com o manduvi é específica: a cavidade natural formada no tronco tem dimensões adequadas, e a madeira resiste à predação de mamíferos. É uma co-evolução entre ave e árvore.'}]},
+{n:7,title:'O Censo Faunístico',sub:'Baía do Caracol – Fim de Tarde',icon:'🔭',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="f7s" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff7043"/><stop offset="100%" stop-color="#ffb74d"/></linearGradient><linearGradient id="f7w" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4dd0e1"/><stop offset="100%" stop-color="#006064"/></linearGradient></defs><rect width="340" height="100" fill="url(#f7s)"/><rect y="100" width="340" height="70" fill="url(#f7w)"/><line x1="0" y1="114" x2="340" y2="114" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><g transform="translate(155,100)"><path d="M-22,0 Q0,-8 22,0 Q15,8 -22,8Z" fill="#4e342e"/><circle cx="-18" cy="-4" r="4" fill="#37474f"/><circle cx="18" cy="-2" r="4" fill="#37474f"/><rect x="-4" y="-12" width="8" height="20" rx="2" fill="#6d4c41"/></g><g transform="translate(155,100)"><line x1="-5" y1="-22" x2="-5" y2="-12" stroke="#37474f" stroke-width="2"/><line x1="5" y1="-22" x2="5" y2="-12" stroke="#37474f" stroke-width="2"/><line x1="-18" y1="-22" x2="18" y2="-22" stroke="#37474f" stroke-width="2"/><circle cx="-14" cy="-22" r="6" fill="#263238"/><circle cx="14" cy="-22" r="6" fill="#263238"/><line x1="-20" y1="-22" x2="-24" y2="-22" stroke="#263238" stroke-width="2"/><line x1="20" y1="-22" x2="24" y2="-22" stroke="#263238" stroke-width="2"/></g><g fill="#1b5e20" opacity=".7"><ellipse cx="50" cy="72" rx="18" ry="9"/><ellipse cx="48" cy="63" rx="12" ry="6"/></g><g fill="#263238"><ellipse cx="260" cy="105" rx="22" ry="7"/><path d="M238,105 Q248,98 270,104 Q260,112 238,112Z" fill="#2e7d32"/><path d="M240,104 L240,96 Q260,96 260,105Z" fill="#1b5e20"/><circle cx="255" cy="100" r="2.5" fill="#37474f"/></g><rect x="5" y="5" width="190" height="48" rx="6" fill="rgba(0,0,0,.6)"/><text x="100" y="18" text-anchor="middle" fill="#fff9c4" font-size="9" font-family="monospace">CENSO FAUNA</text><text x="100" y="29" text-anchor="middle" fill="#a5d6a7" font-size="9" font-family="monospace">Estimativa de onças-pintadas</text><text x="100" y="39" text-anchor="middle" fill="#ffcc80" font-size="8" font-family="monospace">Pantanal: ~4.000 indivíduos</text><text x="100" y="48" text-anchor="middle" fill="#ffcc80" font-size="8" font-family="monospace">Maior pop. do mundo</text></svg>',
+nar:'Missão: estimar a população de onças-pintadas em 50 km² de Pantanal. Você tem câmeras-trap, rastreadores GPS e bote. Com recursos limitados, qual é o melhor método para identificar indivíduos?',
+q:'Qual método é mais eficaz para censos individualizados de onça-pintada?',
+cs:[{l:'A',t:'Armadilhas fotográficas — identificação individual pelas rosetas únicas de cada onça',p:10,e:'✅',tp:'c',fb:'Correto! Cada onça-pintada tem padrão de rosetas único, como impressão digital. As câmeras-trap registram os animais e softwares de reconhecimento de padrão identificam cada indivíduo. É o método padrão mundial, usado no Pantanal desde os anos 2000 com resultados robustos.'},
+{l:'B',t:'Contagem de rastros por quilômetro de margem de rio',p:5,e:'⚠️',tp:'w',fb:'Contagem de rastros é útil como índice de abundância relativa, mas não permite identificar indivíduos. Dois rastros da mesma onça seriam contados como dois animais diferentes. Tem valor complementar, mas não substitui as câmeras-trap para censos precisos.'},
+{l:'C',t:'Sobrevoo de helicóptero e contagem visual de animais',p:0,e:'❌',tp:'x',fb:'Onças são animais crípticos (camuflagem excelente) e principalmente crepusculares/noturnos. A probabilidade de detecção visual aérea é muito baixa — menos de 5% dos indivíduos seriam avistados. Seria subestimação grave da população.'}]}
+]},
+
+/* ─── 3. PULSO DE INUNDAÇÃO ─── */
+{id:'pulso',title:'Pulso de Inundação',desc:'Acompanhe o ciclo anual das cheias e secas e entenda como o Pantanal respira.',
+icon:'🌊',diff:2,dlabel:'Intermediário',col:'#0277bd',hbg:'linear-gradient(135deg,#01579b,#0277bd,#0288d1)',bg:'linear-gradient(160deg,#e3f2fd,#e0f7fa 60%,#e8f5e9)',
+phases:[
+{n:1,title:'O Rio Sobe',sub:'Régua do Porto de Cáceres – Dezembro',icon:'📏',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="p1w" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#42a5f5"/><stop offset="100%" stop-color="#0d47a1"/></linearGradient></defs><rect width="340" height="170" fill="#e3f2fd"/><rect y="90" width="340" height="80" fill="url(#p1w)"/><line x1="0" y1="105" x2="340" y2="105" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><line x1="20" y1="122" x2="90" y2="122" stroke="rgba(255,255,255,.25)" stroke-width="1"/><rect x="140" y="10" width="20" height="150" rx="4" fill="#37474f"/><rect x="144" y="14" width="12" height="146" rx="2" fill="#263238"/><rect x="144" y="94" width="12" height="62" rx="2" fill="#1565c0"/><line x1="132" y1="30" x2="142" y2="30" stroke="white" stroke-width="1.5"/><text x="128" y="34" text-anchor="end" fill="#37474f" font-size="8" font-family="monospace">6m</text><line x1="132" y1="50" x2="142" y2="50" stroke="white" stroke-width="1.5"/><text x="128" y="54" text-anchor="end" fill="#37474f" font-size="8" font-family="monospace">5m</text><line x1="132" y1="70" x2="142" y2="70" stroke="white" stroke-width="1.5"/><text x="128" y="74" text-anchor="end" fill="#37474f" font-size="8" font-family="monospace">4m</text><line x1="132" y1="90" x2="142" y2="90" stroke="white" stroke-width="1.5"/><text x="128" y="94" text-anchor="end" fill="#37474f" font-size="8" font-family="monospace">3m ←</text><line x1="132" y1="110" x2="142" y2="110" stroke="white" stroke-width="1.5"/><text x="128" y="114" text-anchor="end" fill="white" font-size="8" font-family="monospace">2m</text><line x1="132" y1="130" x2="142" y2="130" stroke="white" stroke-width="1.5"/><text x="128" y="134" text-anchor="end" fill="white" font-size="8" font-family="monospace">1m</text><rect x="170" y="12" width="162" height="90" rx="6" fill="white" stroke="#0277bd" stroke-width="1.5"/><text x="251" y="26" text-anchor="middle" fill="#0277bd" font-size="9" font-family="monospace" font-weight="bold">NÍVEL ATUAL: 3,2m</text><text x="178" y="40" fill="#37474f" font-size="8" font-family="monospace">Tendência: ↑ subindo</text><text x="178" y="52" fill="#37474f" font-size="8" font-family="monospace">Chuvas: acima da média</text><text x="178" y="64" fill="#37474f" font-size="8" font-family="monospace">Previsão: 5-6m em março</text><text x="178" y="76" fill="#c62828" font-size="8" font-family="monospace">Alerta: áreas baixas</text><text x="178" y="88" fill="#37474f" font-size="8" font-family="monospace">Sazonalidade: normal</text></svg>',
+nar:'Dezembro em Cáceres-MT. A régua do Porto mostra 3,2 metros e subindo. Chuvas acima da média na bacia do Alto Paraguai. Quando você espera o pico da cheia e o que deve acontecer à planície pantaneira?',
+q:'Quando costuma ocorrer o pico da cheia em Cáceres e o que ele provoca?',
+cs:[{l:'A',t:'Pico em fevereiro-março; a planície inunda, conectando lagoas e rios por meses',p:10,e:'✅',tp:'c',fb:'Correto! As chuvas de novembro-janeiro na cabeceira (planalto de Mato Grosso) chegam em Cáceres com 2-3 meses de atraso. O pico em fev-março pode ultrapassar 5 metros, inundando centenas de km². É o "pulso de inundação" que ativa todo o ecossistema!'},
+{l:'B',t:'Pico em junho-julho (inverno seco) devido à redução da evaporação',p:0,e:'❌',tp:'x',fb:'Junho-julho é exatamente o período de seca no Pantanal de Cáceres — não de cheia! As chuvas no Pantanal sul-mato-grossense ocorrem de out-mar. O pico da cheia em Cáceres é em fevereiro-março, com ondas de inundação vindas do Planalto.'},
+{l:'C',t:'Pico em outubro (primavera), com inundação rápida que dura só dias',p:0,e:'❌',tp:'x',fb:'Outubro marca o início das chuvas, não o pico da cheia. A inundação no Pantanal não é rápida — a planície alaga progressivamente por semanas a meses, com pico entre fevereiro e abril dependendo do setor.'}]},
+{n:2,title:'A Conectividade',sub:'Planície Inundada – Março',icon:'🔗',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="p2c" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#80deea"/><stop offset="100%" stop-color="#0097a7"/></linearGradient></defs><rect width="340" height="170" fill="url(#p2c)"/><line x1="0" y1="50" x2="340" y2="50" stroke="rgba(255,255,255,.3)" stroke-width="1"/><line x1="0" y1="100" x2="340" y2="100" stroke="rgba(255,255,255,.25)" stroke-width="1"/><line x1="0" y1="140" x2="340" y2="140" stroke="rgba(255,255,255,.2)" stroke-width="1"/><ellipse cx="80" cy="85" rx="55" ry="40" fill="rgba(0,150,200,.5)" stroke="rgba(255,255,255,.5)" stroke-width="2"/><text x="80" y="82" text-anchor="middle" fill="white" font-size="9" font-family="monospace" font-weight="bold">LAGOA A</text><text x="80" y="93" text-anchor="middle" fill="#e0f7fa" font-size="8" font-family="monospace">12 spp. de peixe</text><ellipse cx="255" cy="85" rx="55" ry="40" fill="rgba(0,150,200,.5)" stroke="rgba(255,255,255,.5)" stroke-width="2"/><text x="255" y="82" text-anchor="middle" fill="white" font-size="9" font-family="monospace" font-weight="bold">LAGOA B</text><text x="255" y="93" text-anchor="middle" fill="#e0f7fa" font-size="8" font-family="monospace">15 spp. de peixe</text><path d="M135,85 Q170,60 220,85" stroke="rgba(255,255,0,.7)" stroke-width="3" fill="none" stroke-dasharray="6,3"/><text x="170" y="68" text-anchor="middle" fill="#ffff00" font-size="9" font-family="monospace" font-weight="bold">CHEIA: conectadas!</text><g fill="#f57f17" opacity=".7"><circle cx="155" cy="78" r="3"/><circle cx="165" cy="72" r="2.5"/><circle cx="180" cy="75" r="3"/><circle cx="192" cy="70" r="2.5"/><circle cx="205" cy="78" r="3"/></g><rect x="5" y="5" width="185" height="32" rx="6" fill="rgba(0,0,0,.55)"/><text x="97" y="17" text-anchor="middle" fill="#fff9c4" font-size="8" font-family="monospace">Seca: lagoas isoladas</text><text x="97" y="28" text-anchor="middle" fill="#a5d6a7" font-size="8" font-family="monospace">Cheia: lagoas conectadas ao rio</text></svg>',
+nar:'A planície alaga. Lagoas antes isoladas agora se conectam ao rio e entre si por lâminas rasas de água. Peixes migram entre ambientes. O que acontece com a biodiversidade aquática durante esse período de conectividade?',
+q:'Qual o efeito da conectividade na ictiofauna pantaneira?',
+cs:[{l:'A',t:'Aumenta a diversidade — peixes trocam genes, recolonizam lagoas e se alimentam de novos recursos',p:10,e:'✅',tp:'c',fb:'Perfeito! A conectividade é fundamental para a biodiversidade aquática. Peixes migram para reprodução, recolonizam lagoas que secaram, trocam material genético entre populações e acessam recursos alimentares novos (sementes de plantas inundadas, invertebrados do solo). É a "fase de pulso" mais produtiva do ciclo!'},
+{l:'B',t:'Diminui — peixes de lagoa morrem ao entrar em contato com água de rio',p:0,e:'❌',tp:'x',fb:'Não! A maioria dos peixes pantaneiros são eurioicos — adaptados a ampla variação de condições. A conectividade é benéfica, não prejudicial. Peixes de lagoa aproveitam a cheia para migrar, desovar e se alimentar em ambientes distintos.'},
+{l:'C',t:'Não muda — peixes permanecem no mesmo ambiente durante a cheia',p:0,e:'❌',tp:'x',fb:'Pelo contrário! A cheia é o principal gatilho para movimentação dos peixes. Estudos com telemetria mostram que peixes se deslocam dezenas a centenas de quilômetros durante o período de conectividade.'}]},
+{n:3,title:'A Cordilheira',sub:'Fazenda São Domingos – Cheia',icon:'⛰️',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="p3w" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4dd0e1"/><stop offset="100%" stop-color="#0277bd"/></linearGradient></defs><rect width="340" height="170" fill="url(#p3w)"/><line x1="0" y1="80" x2="340" y2="80" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><line x1="0" y1="110" x2="340" y2="110" stroke="rgba(255,255,255,.2)" stroke-width="1"/><ellipse cx="170" cy="80" rx="110" ry="35" fill="#4caf50"/><ellipse cx="170" cy="72" rx="95" ry="28" fill="#388e3c"/><ellipse cx="170" cy="65" rx="80" ry="20" fill="#2e7d32"/><g transform="translate(120,62)"><ellipse cx="0" cy="0" rx="16" ry="9" fill="#6d4c41"/><ellipse cx="14" cy="-4" rx="7" ry="6" fill="#6d4c41"/><circle cx="18" cy="-6" r="4" fill="#5d4037"/></g><g transform="translate(185,58)"><ellipse cx="0" cy="0" rx="20" ry="11" fill="#8d6e63"/><ellipse cx="18" cy="-5" rx="9" ry="7" fill="#8d6e63"/><circle cx="25" cy="-8" r="5" fill="#795548"/><rect x="-8" y="8" width="4" height="10" rx="1.5" fill="#6d4c41"/><rect x="4" y="8" width="4" height="10" rx="1.5" fill="#6d4c41"/><rect x="14" y="8" width="4" height="10" rx="1.5" fill="#6d4c41"/></g><g fill="#263238"><path d="M218,65 Q228,56 236,65 Q232,72 218,72Z" fill="#1b5e20"/><circle cx="230" cy="58" r="4.5" fill="#263238"/><ellipse cx="226" cy="62" rx="2" ry="3" fill="#b71c1c" opacity=".85"/></g><rect x="5" y="5" width="175" height="36" rx="6" fill="rgba(0,0,0,.6)"/><text x="92" y="18" text-anchor="middle" fill="#fff9c4" font-size="9" font-family="monospace">CORDILHEIRA</text><text x="92" y="29" text-anchor="middle" fill="#a5d6a7" font-size="8" font-family="monospace">Área não alagada: refúgio da fauna</text><text x="92" y="38" text-anchor="middle" fill="#e0f7fa" font-size="7" font-family="monospace">Cota: ~0.5m acima da cheia</text></svg>',
+nar:'A planície está inundada. No meio da "mar" de água, uma faixa elevada (cordilheira) permanece seca. Capivaras, cervos-do-pantanal e tuiuiús se concentram ali. Qual é a função ecológica das cordilheiras durante a cheia?',
+q:'Para que servem as cordilheiras durante o período de inundação?',
+cs:[{l:'A',t:'São refúgios terrestres: garantem alimentação e reprodução de espécies terrestres durante a cheia',p:10,e:'✅',tp:'c',fb:'Exato! As cordilheiras são fundamentais no Pantanal. São elevações naturais (0,5 a 2m acima da planície) onde a vegetação terrestre persiste durante a cheia. Servem de berçário para cervo-do-pantanal, capivara, ema e inúmeras aves. Sua preservação é crítica para a conservação da fauna.'},
+{l:'B',t:'São áreas de pesca mais produtivas por concentrar peixes fugindo da cheia',p:5,e:'⚠️',tp:'w',fb:'As cordilheiras são áreas terrestres — os peixes se concentram nas baías e corixos, não nas cordilheiras. As cordilheiras servem como refúgio terrestre, não aquático. Você confundiu com as bordas inundadas, que sim concentram peixes predados por garças e ariranhas.'},
+{l:'C',t:'São locais onde a umidade do solo favorece plantas medicinais usadas pela fauna',p:0,e:'❌',tp:'x',fb:'As cordilheiras têm vegetação típica de campo e mata de transição — mas a principal função ecológica não é farmacológica. São refúgios físicos: a fauna terrestre busca as cordilheiras para escapar da inundação e garantir alimento e local de reprodução.'}]},
+{n:4,title:'Floresta Inundada',sub:'Mata Ciliar do Corixo – Cheia',icon:'🌳',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="p4w" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4dd0e1"/><stop offset="100%" stop-color="#01579b"/></linearGradient></defs><rect width="340" height="60" fill="#e8f5e9"/><rect y="60" width="340" height="110" fill="url(#p4w)"/><path d="M0,52 Q50,38 100,46 Q150,34 200,44 Q250,36 300,46 L340,50 L340,64 L0,64Z" fill="#66bb6a"/><line x1="0" y1="78" x2="340" y2="78" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><line x1="20" y1="100" x2="100" y2="100" stroke="rgba(255,255,255,.25)" stroke-width="1"/><line x1="180" y1="115" x2="270" y2="115" stroke="rgba(255,255,255,.25)" stroke-width="1"/><line x1="50" y1="170" x2="50" y2="60" stroke="#5d4037" stroke-width="5"/><ellipse cx="50" cy="58" rx="24" ry="10" fill="#1b5e20"/><ellipse cx="50" cy="50" rx="18" ry="8" fill="#2e7d32"/><line x1="110" y1="170" x2="110" y2="62" stroke="#4e342e" stroke-width="4"/><ellipse cx="110" cy="60" rx="20" ry="9" fill="#33691e"/><line x1="180" y1="170" x2="180" y2="58" stroke="#5d4037" stroke-width="5"/><ellipse cx="180" cy="56" rx="24" ry="10" fill="#1b5e20"/><line x1="250" y1="170" x2="250" y2="62" stroke="#4e342e" stroke-width="4"/><ellipse cx="250" cy="60" rx="20" ry="9" fill="#2e7d32"/><line x1="310" y1="170" x2="310" y2="64" stroke="#5d4037" stroke-width="4"/><ellipse cx="310" cy="62" rx="18" ry="8" fill="#33691e"/><circle cx="80" cy="95" r="4" fill="rgba(255,255,255,.6)"/><circle cx="145" cy="88" r="3" fill="rgba(255,255,255,.55)"/><circle cx="225" cy="100" r="5" fill="rgba(255,255,255,.6)"/><circle cx="290" cy="92" r="3" fill="rgba(255,255,255,.55)"/><line x1="80" y1="170" x2="80" y2="95" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-dasharray="4,3"/><line x1="225" y1="170" x2="225" y2="100" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-dasharray="4,3"/><rect x="0" y="155" width="340" height="15" fill="#3e2723" opacity=".65"/><text x="170" y="166" text-anchor="middle" fill="#bcaaa4" font-size="8" font-family="monospace">sedimento anóxico — metanogênese intensa</text></svg>',
+nar:'A mata ciliar está submersa. Troncos emergem da água turva. Bolhas sobem do sedimento escuro. Medições mostram CH₄ e CO₂ muito elevados. Por que a mata inundada emite tantos gases de efeito estufa?',
+q:'Por que florestas inundadas emitem grandes quantidades de GEE?',
+cs:[{l:'A',t:'Decomposição anaeróbia da matéria orgânica submersa produz CH₄; CO₂ também é liberado',p:10,e:'✅',tp:'c',fb:'Correto! Quando a floresta inunda, o solo e a serapilheira ficam submersos em condições anóxicas. Archaea metanogênicas e bactérias fermentadoras produzem CH₄ e CO₂ em grande quantidade. O Pantanal é uma fonte natural significativa de GEE para a atmosfera durante a cheia!'},
+{l:'B',t:'As árvores fotossintetizam menos debaixo d'água, acumulando CO₂',p:5,e:'⚠️',tp:'w',fb:'A fotossíntese subaquática é realmente reduzida, mas a principal razão para o aumento de GEE não é a redução da fotossíntese. É a ativação da decomposição anaeróbia no sedimento inundado que domina o balanço de carbono.'},
+{l:'C',t:'A água aquece e expande os gases presos nas raízes das árvores',p:0,e:'❌',tp:'x',fb:'Gases presos em raízes não são a principal fonte. Os GEE vêm da atividade microbiana (metanogênese e fermentação) no sedimento anóxico. O aquecimento da água pode acelerar os processos metabólicos, mas não é o mecanismo principal.'}]},
+{n:5,title:'A Seca Concentra',sub:'Baía Seca – Julho',icon:'☀️',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><rect width="340" height="170" fill="#fff8e1"/><rect y="120" width="340" height="50" fill="#a1887f"/><path d="M0,108 Q50,98 100,106 Q150,96 200,104 Q250,96 300,102 L340,100 L340,124 L0,124Z" fill="#8d6e63"/><ellipse cx="170" cy="112" rx="100" ry="22" fill="#6d4c41"/><g fill="#00bcd4" opacity=".7"><ellipse cx="170" cy="116" rx="55" ry="14" fill="#0288d1"/><ellipse cx="168" cy="115" rx="45" ry="11" fill="#0097a7"/></g><g fill="#ef6c00"><path d="M140,113 L150,104 L155,113 L150,118Z"/><path d="M162,110 L170,100 L175,110 L170,115Z"/><path d="M183,113 L190,103 L195,113 L190,118Z"/><path d="M130,116 L137,108 L141,116 L137,120Z"/><path d="M196,115 L204,107 L208,115 L204,119Z"/></g><g fill="#263238"><path d="M60,108 Q80,100 100,106 L95,118 Q80,114 65,116Z"/><circle cx="76" cy="102" r="3.5" fill="#263238"/><line x1="68" y1="102" x2="58" y2="99" stroke="#263238" stroke-width="1.5"/></g><g fill="#263238"><path d="M230,106 Q252,98 274,104 L270,116 Q254,112 236,114Z"/><circle cx="248" cy="100" r="3.5" fill="#263238"/><line x1="240" y1="100" x2="230" y2="97" stroke="#263238" stroke-width="1.5"/></g><circle cx="170" cy="28" r="24" fill="#fff9c4" opacity=".8"/><circle cx="170" cy="28" r="17" fill="#ffe57f"/><circle cx="170" cy="28" r="11" fill="#ffd740"/><rect x="5" y="5" width="160" height="36" rx="6" fill="rgba(0,0,0,.55)"/><text x="85" y="18" text-anchor="middle" fill="#fff9c4" font-size="9" font-family="monospace">BAÍA NA SECA</text><text x="85" y="29" text-anchor="middle" fill="#ffcc80" font-size="8" font-family="monospace">Peixes concentrados</text><text x="85" y="38" text-anchor="middle" fill="#a5d6a7" font-size="8" font-family="monospace">Garças e jacarés aproveitam</text></svg>',
+nar:'Julho. A baía secou mais de 80%, restando uma poça de 40m de diâmetro. Centenas de peixes se concentram no pouco volume de água. Jacarés e garças se festejam às margens. Qual é o papel ecológico dessa concentração?',
+q:'O que representa ecologicamente a concentração de peixes durante a seca?',
+cs:[{l:'A',t:'Pulso de seca: concentra presas para aves, jacarés e ariranhas — pico de produtividade trófica',p:10,e:'✅',tp:'c',fb:'Exatamente! A seca é tão importante quanto a cheia no Pantanal. A concentração de peixes em poços residuais alimenta toda a cadeia trófica aquática — garças, marrecos, jacarés, ariranhas e lontra. É um "pulso reverso" de produtividade que balanceia o ecossistema anualmente.'},
+{l:'B',t:'É um evento negativo — indica degradação ambiental e deve ser controlado',p:0,e:'❌',tp:'x',fb:'A seca pantaneira é um evento natural e historicamente recorrente — não é degradação! O sistema evoluiu com esse pulso de seca-cheia. A concentração de peixes é uma funcionalidade ecológica, não um problema. O problema seria uma seca prolongada e severa fora do padrão histórico.'},
+{l:'C',t:'Os peixes concentrados se alimentam mais e engordam mais rápido',p:0,e:'❌',tp:'x',fb:'Na seca, a concentração estressa os peixes — o oxigênio dissolto cai, a competição por alimento aumenta. Não é período de engorda. O benefício ecológico está na cadeia acima: predadores que se alimentam dos peixes concentrados, não nos próprios peixes.'}]},
+{n:6,title:'O Pulso de Junk',sub:'Margem do Rio – Campo Limpo',icon:'📈',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><rect width="340" height="170" fill="#e3f2fd"/><rect x="40" y="20" width="280" height="130" rx="6" fill="white" stroke="#0277bd" stroke-width="1.5"/><line x1="60" y1="130" x2="300" y2="130" stroke="#90a4ae" stroke-width="1.5"/><line x1="60" y1="130" x2="60" y2="30" stroke="#90a4ae" stroke-width="1.5"/><text x="170" y="158" text-anchor="middle" fill="#37474f" font-size="9" font-family="monospace">Jan Feb Mar Abr Mai Jun Jul Ago Set Out Nov Dez</text><text x="30" y="85" text-anchor="middle" fill="#37474f" font-size="9" font-family="monospace" transform="rotate(-90,30,85)">Nível (m)</text><polyline points="60,120 80,110 100,85 120,55 140,40 160,38 180,45 200,70 220,100 240,115 260,118 280,120 300,120" fill="none" stroke="#0277bd" stroke-width="2.5"/><line x1="60" y1="130" x2="300" y2="130" stroke="#a5d6a7" stroke-width="1" stroke-dasharray="3,2" opacity=".7"/><text x="180" y="25" text-anchor="middle" fill="#0277bd" font-size="9" font-family="monospace" font-weight="bold">PULSO DE INUNDAÇÃO ANUAL</text><rect x="205" y="32" width="88" height="38" rx="4" fill="#e3f2fd" stroke="#0277bd" stroke-width="1"/><text x="249" y="44" text-anchor="middle" fill="#0277bd" font-size="8" font-family="monospace">Cheia: fev-abr</text><text x="249" y="54" text-anchor="middle" fill="#43a047" font-size="8" font-family="monospace">↑ biodiversidade</text><text x="249" y="64" text-anchor="middle" fill="#f57f17" font-size="8" font-family="monospace">↑ produtividade</text></svg>',
+nar:'O gráfico mostra o ciclo anual de nível do Rio Paraguai em Cáceres. A teoria do "Pulso de Inundação" de Junk, Bayley e Sparks (1989) é considerada o maior avanço no estudo de planícies alagáveis. O que ela afirma?',
+q:'O que postula o "Pulso de Inundação" (Flood Pulse Concept)?',
+cs:[{l:'A',t:'O ciclo cheia-seca é o principal motor de produtividade e biodiversidade em planícies alagáveis',p:10,e:'✅',tp:'c',fb:'Exatamente! Junk et al. (1989) propuseram que nas planícies alagáveis tropicais, a alternância cheia-seca (pulso de inundação) — e não o gradiente rio-planície — é o principal fator que estrutura as comunidades e move o fluxo de energia. O Pantanal é um dos exemplos mais estudados dessa teoria!'},
+{l:'B',t:'As inundações destroem os ecossistemas e a biodiversidade se recupera na seca',p:0,e:'❌',tp:'x',fb:'O oposto! Junk et al. propõem que a inundação não é perturbação — é o principal motor de produtividade. A cheia ativa a lixiviação de nutrientes, a migração de peixes e a produção primária. A seca concentra a cadeia trófica. Ambas as fases são complementares e essenciais.'},
+{l:'C',t:'O nível do rio controla só os peixes; outros organismos não respondem ao pulso',p:0,e:'❌',tp:'x',fb:'O Pulso de Inundação afeta TODOS os componentes bióticos: peixes, anfíbios, répteis, aves, mamíferos, macrófitas, fitoplâncton, zooplâncton, bentos e até a vegetação terrestre das cordilheiras. É uma teoria de ecossistema, não de ictiologia.'}]},
+{n:7,title:'Rio Paraguai em Seca',sub:'Análise de Dados – Cáceres-MT',icon:'📉',
+svg:'<svg viewBox="0 0 340 170" xmlns="http://www.w3.org/2000/svg"><rect width="340" height="170" fill="#e3f2fd"/><rect x="40" y="20" width="280" height="130" rx="6" fill="white" stroke="#c62828" stroke-width="1.5"/><line x1="60" y1="130" x2="300" y2="130" stroke="#90a4ae" stroke-width="1.5"/><line x1="60" y1="130" x2="60" y2="30" stroke="#90a4ae" stroke-width="1.5"/><text x="170" y="158" text-anchor="middle" fill="#37474f" font-size="9" font-family="monospace">1966  1975  1985  1995  2005  2015  2025</text><text x="28" y="85" text-anchor="middle" fill="#37474f" font-size="9" font-family="monospace" transform="rotate(-90,28,85)">Mín. (m)</text><polyline points="62,55 80,57 100,60 120,68 140,75 160,82 180,90 200,95 220,100 240,108 260,112 280,116 299,118" fill="none" stroke="#c62828" stroke-width="2.5"/><polyline points="62,55 80,57 100,60 120,68 140,75 160,82 180,90 200,95 220,100 240,108 260,112 280,116 299,118" fill="rgba(198,40,40,.08)" stroke="none"/><line x1="60" y1="130" x2="300" y2="130" stroke="rgba(198,40,40,.4)" stroke-width="1" stroke-dasharray="3,2"/><text x="180" y="25" text-anchor="middle" fill="#c62828" font-size="9" font-family="monospace" font-weight="bold">MÍNIMOS HISTÓRICOS – RIO PARAGUAI</text><rect x="185" y="34" width="128" height="48" rx="4" fill="#fff8e1" stroke="#c62828" stroke-width="1"/><text x="249" y="46" text-anchor="middle" fill="#c62828" font-size="8" font-family="monospace">Tendência: -0.8m/dec</text><text x="249" y="57" text-anchor="middle" fill="#37474f" font-size="8" font-family="monospace">1966: ~2.5m mínimo</text><text x="249" y="67" text-anchor="middle" fill="#c62828" font-size="8" font-family="monospace">2023: ~0.3m mínimo</text><text x="249" y="77" text-anchor="middle" fill="#e65100" font-size="8" font-family="monospace">SECA EXTREMA 2019-24</text></svg>',
+nar:'Dados do Rio Paraguai em Cáceres mostram tendência de queda nos níveis mínimos anuais desde os anos 1970. A seca de 2019-2024 bateu recordes históricos. Qual a explicação mais completa para essa tendência?',
+q:'O que melhor explica a queda dos mínimos históricos do Rio Paraguai?',
+cs:[{l:'A',t:'Combinação de mudanças de uso do solo, aumento do consumo de água e alterações climáticas',p:10,e:'✅',tp:'c',fb:'Correto! A explicação é multifatorial. O desmatamento no Planalto reduz a recarga hídrica. A expansão da agropecuária aumenta o consumo de água. As mudanças climáticas (aumento de temperatura, variações de precipitação) agravam o déficit. A queda dos mínimos é um alarme para a saúde hídrica do Pantanal.'},
+{l:'B',t:'É variabilidade climática natural — ciclos de seca são normais no Pantanal',p:5,e:'⚠️',tp:'w',fb:'Ciclos de seca são naturais, sim. Mas a magnitude e persistência da queda desde os anos 70 supera a variabilidade histórica documentada. Análises de série temporal mostram tendência negativa estatisticamente significativa, indicando que fatores antrópicos se sobrepõem à variabilidade natural.'},
+{l:'C',t:'Construção de barragens no Rio Paraguai que retêm a água',p:0,e:'❌',tp:'x',fb:'O Rio Paraguai não tem grandes barragens em seu curso principal no trecho de Cáceres. A queda dos mínimos está mais relacionada à redução da recarga hídrica por desmatamento no Planalto e ao aumento do consumo de água para irrigação na bacia.'}]}
+]}
+];
+
+/* ─── "Em Breve" stubs ─── */
+const SOON=[
+{id:'fogo',title:'Ecologia do Fogo',desc:'Compreenda o papel do fogo como agente ecológico e seus efeitos pós-queimada.',icon:'🔥',diff:3,dlabel:'Avançado',col:'#bf360c'},
+{id:'cultura',title:'Cultura Pantaneira',desc:'Explore a identidade do peão, a história das fazendas e o modo de vida pantaneiro.',icon:'🤠',diff:1,dlabel:'Iniciante',col:'#6d4c41'},
+{id:'flora',title:'Flora do Pantanal',desc:'Identifique espécies vegetais, fitofisionomias e o papel das macrófitas.',icon:'🌿',diff:2,dlabel:'Intermediário',col:'#2e7d32'},
+];
+
+/* ══════════ STATE ══════════ */
+let EXP=null, G={ph:0,score:0,ch:null};
+
+/* ══════════ HUB ══════════ */
+function renderHub(){
+  EXP=null; G={ph:0,score:0,ch:null};
+  const ecards=EXPEDITIONS.map(e=>`
+  <div class="exp-card" onclick="loadExp('${e.id}')" style="background:${e.bg||'linear-gradient(135deg,#e8f5e9,#f1f8e9)'};border:2px solid ${e.col}22">
+    <div style="padding:18px 18px 14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span style="font-size:34px">${e.icon}</span>
+        <div style="text-align:right">
+          <div style="font-size:13px">${stars(e.diff)}</div>
+          <span class="badge" style="background:${e.col};color:white;margin-top:3px">${e.dlabel}</span>
+        </div>
+      </div>
+      <div style="font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:16px;color:#1a2e1a;margin-bottom:6px;line-height:1.2">${e.title}</div>
+      <div style="font-size:12px;color:#546e7a;line-height:1.5;margin-bottom:10px">${e.desc}</div>
+      <div style="font-size:12px;font-weight:700;color:${e.col}">Iniciar expedição →</div>
+    </div>
+  </div>`).join('');
+  const scards=SOON.map(e=>`
+  <div style="background:linear-gradient(135deg,#f5f5f5,#eeeeee);border-radius:18px;padding:18px 18px 14px;opacity:.6;border:2px solid #e0e0e0">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <span style="font-size:34px">${e.icon}</span>
+      <div style="text-align:right">
+        <div style="font-size:13px">${stars(e.diff)}</div>
+        <span class="badge" style="background:${e.col};color:white;margin-top:3px">${e.dlabel}</span>
+      </div>
+    </div>
+    <div style="font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:16px;color:#9e9e9e;margin-bottom:6px">${e.title}</div>
+    <div style="font-size:12px;color:#bdbdbd;line-height:1.5;margin-bottom:10px">${e.desc}</div>
+    <span class="badge" style="background:#e0e0e0;color:#9e9e9e">Em breve</span>
+  </div>`).join('');
+  R(`<div class="sc" style="background:linear-gradient(160deg,#e8f5e9,#f1f8e9 60%,#e0f2f1)">
+    <div style="background:linear-gradient(135deg,#1b5e20,#2e7d32 55%,#1a5276);padding:26px 20px 20px">
+      <div style="max-width:640px;margin:0 auto">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <span style="font-size:38px">🌿</span>
+          <div>
+            <div style="font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:clamp(22px,4vw,30px);color:#f9a825;letter-spacing:1px;text-shadow:0 2px 10px rgba(0,0,0,.3)">Expedições Pantaneiras</div>
+            <div style="color:#a5d6a7;font-size:12px;margin-top:2px">Plataforma educativa de aventura científica</div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;display:flex;gap:14px;align-items:flex-start;border:1px solid rgba(255,255,255,.15)">
+          <div style="font-size:36px;flex-shrink:0">👨‍🔬</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#f9a825;margin-bottom:4px">O Pesquisador Pantaneiro</div>
+            <div style="font-size:12px;color:#e8f5e9;line-height:1.7">Nascido em Cáceres-MT, formado no Brasil e no exterior, com mais de 20 anos de pesquisa no maior pantanal do mundo. Guiará você por expedições reais de campo — do fundo das lagoas ao topo das cordilheiras. Cada decisão tem peso científico.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:640px;margin:0 auto;padding:20px 14px 48px">
+      <div style="font-size:11px;font-weight:700;color:#546e7a;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px">🗺️ Escolha sua expedição</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">${ecards}</div>
+      <div style="font-size:11px;font-weight:700;color:#b0bec5;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px">⏳ Em desenvolvimento</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">${scards}</div>
+      <div style="text-align:center;margin-top:28px">
+        <div style="display:inline-flex;gap:16px;font-size:11px;color:#90a4ae">
+          <span>${stars(1)} Iniciante</span>
+          <span>${stars(2)} Intermediário</span>
+          <span>${stars(3)} Avançado</span>
+        </div>
+        <p style="font-size:11px;color:#b0bec5;margin-top:8px">🌿 Expedições Pantaneiras — Ferramenta educativa UNEMAT</p>
+      </div>
+    </div>
+  </div>`);
+}
+
+/* ══════════ LOAD EXPEDITION ══════════ */
+function loadExp(id){
+  EXP=EXPEDITIONS.find(e=>e.id===id);
+  G={ph:0,score:0,ch:null};
+  renderPhase();
+}
+
+/* ══════════ PHASE ══════════ */
+function renderPhase(){
+  const ph=EXP.phases[G.ph];
+  R(`<div class="sc" style="background:${EXP.bg}">
+    <div style="background:${EXP.hbg};padding:13px 20px">
+      <div style="max-width:580px;margin:0 auto;display:flex;align-items:center;gap:10px">
+        <button onclick="renderHub()" style="background:rgba(255,255,255,.15);color:white;border:none;border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer;font-weight:600">← Expedições</button>
+        <div style="flex:1;display:flex;justify-content:center;gap:5px;align-items:center">${dots()}</div>
+        <div style="background:rgba(255,255,255,.2);border-radius:20px;padding:4px 12px;font-size:13px;font-weight:800;color:white">${G.score} pts</div>
+      </div>
+    </div>
+    <div style="max-width:580px;margin:0 auto;padding:15px 14px 48px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+        <span class="badge" style="background:${EXP.col};color:white">Fase ${ph.n} de ${EXP.phases.length}</span>
+        <span style="font-size:11px;color:#546e7a;font-weight:600">${ph.sub}</span>
+      </div>
+      <div style="overflow:hidden;border-radius:14px;margin-bottom:14px;border:2px solid ${EXP.col}22;box-shadow:0 3px 16px rgba(0,0,0,.08)">${ph.svg}</div>
+      <div class="card" style="margin-bottom:14px;border-left:4px solid ${EXP.col}">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <span style="font-size:26px">${ph.icon}</span>
+          <div style="font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:19px;color:#1a2e1a">${ph.title}</div>
+        </div>
+        <p style="font-size:14px;color:#37474f;line-height:1.75">${ph.nar}</p>
+      </div>
+      <div class="card sUp">
+        <div style="font-size:11px;font-weight:700;color:${EXP.col};letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px">${ph.q}</div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          ${ph.cs.map((c,i)=>`<button class="cbtn" onclick="sel(${i})" style="background:${EXP.col}11;border-color:${EXP.col}33;color:#263238"><span style="font-weight:800;color:${EXP.col};margin-right:8px">${c.l})</span>${c.t}</button>`).join('')}
+        </div>
+      </div>
+    </div>
+  </div>`);
+}
+
+/* ══════════ FEEDBACK ══════════ */
+function renderFeedback(){
+  const ph=EXP.phases[G.ph], c=ph.cs[G.ch];
+  const ok=c.tp==='c', par=c.tp==='w';
+  const fc=ok?'#1b5e20':par?'#e65100':'#c62828';
+  const fbg=ok?'linear-gradient(135deg,#e8f5e9,#f1f8e9)':par?'linear-gradient(135deg,#fff3e0,#fff8e1)':'linear-gradient(135deg,#fce4ec,#fbe9e7)';
+  const fb2=ok?'#43a047':par?'#ffa000':'#e53935';
+  R(`<div class="sc" style="background:${EXP.bg}">
+    <div style="background:${EXP.hbg};padding:13px 20px">
+      <div style="max-width:580px;margin:0 auto;display:flex;align-items:center;gap:10px">
+        <div style="width:80px"></div>
+        <div style="flex:1;display:flex;justify-content:center;gap:5px;align-items:center">${dots()}</div>
+        <div style="background:rgba(255,255,255,.2);border-radius:20px;padding:4px 12px;font-size:13px;font-weight:800;color:white">${G.score} pts</div>
+      </div>
+    </div>
+    <div style="max-width:580px;margin:0 auto;padding:15px 14px 48px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+        <span class="badge" style="background:${EXP.col};color:white">Fase ${ph.n} de ${EXP.phases.length}</span>
+        <span style="font-size:19px">${c.e}</span>
+        <span style="font-size:13px;font-weight:700;color:${fc}">${ok?'Resposta correta!':par?'Quase lá!':'Não foi dessa vez!'}</span>
+      </div>
+      <div class="card" style="margin-bottom:13px;border:2px solid ${fb2}88;background:${fbg}">
+        <div style="font-size:10px;font-weight:700;color:${fc};letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px">Sua resposta</div>
+        <div style="font-size:14px;color:#37474f;line-height:1.6"><span style="font-weight:800;color:${fc}">${c.l})</span> ${c.t}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
+          <span style="font-size:19px">${c.e}</span>
+          <span style="font-size:21px;font-weight:900;color:${sc(c.p)}">${c.p>0?'+'+c.p:'0'} pts</span>
+        </div>
+      </div>
+      <div class="card sUp" style="margin-bottom:18px;border-left:4px solid ${EXP.col}">
+        <div style="font-size:10px;font-weight:700;color:${EXP.col};letter-spacing:1.5px;text-transform:uppercase;margin-bottom:9px">🧪 Explicação do Pesquisador</div>
+        <p style="font-size:14px;color:#37474f;line-height:1.8">${c.fb}</p>
+      </div>
+      <button class="btn" onclick="next()" style="width:100%;background:${EXP.col};color:white;font-size:16px;padding:15px;border-radius:14px">
+        ${G.ph<EXP.phases.length-1?'Próxima Fase →':'Ver Resultado Final 🏆'}
+      </button>
+    </div>
+  </div>`);
+}
+
+/* ══════════ ENDING ══════════ */
+function renderEnding(){
+  const mx=EXP.phases.length*10, pct=Math.round((G.score/mx)*100);
+  let tr,sr,ir;
+  if(pct>=85){tr='Pesquisador(a) Sênior';sr='Domínio excepcional! Você pensa como um cientista pantaneiro.';ir='🏆';}
+  else if(pct>=60){tr='Pesquisador(a) Pleno(a)';sr='Sólido conhecimento! Continue aprofundando.';ir='🥈';}
+  else if(pct>=35){tr='Pesquisador(a) Júnior';sr='Boa base! Cada expedição ensina mais.';ir='🥉';}
+  else{tr='Estagiário(a) Curioso(a)';sr='O Pantanal reserva muitas surpresas. Tente novamente!';ir='🌱';}
+  R(`<div class="sc" style="background:linear-gradient(160deg,#fffde7,#fff8e1 50%,#fffde7)">
+    <div style="background:${EXP.hbg};padding:22px 20px;text-align:center">
+      <div style="font-size:44px;margin-bottom:6px">${ir}</div>
+      <div style="font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:clamp(20px,5vw,28px);color:white;text-shadow:0 2px 10px rgba(0,0,0,.3);margin-bottom:4px">${tr}</div>
+      <div style="color:rgba(255,255,255,.85);font-size:13px">${sr}</div>
+    </div>
+    <div style="max-width:580px;margin:0 auto;padding:18px 14px 48px">
+      <div class="card cel" style="text-align:center;margin-bottom:14px;border:2px solid ${EXP.col}44">
+        <div style="font-size:10px;color:#90a4ae;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px">Resultado — ${EXP.title}</div>
+        <div style="font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:52px;color:${EXP.col};line-height:1">${G.score}</div>
+        <div style="font-size:12px;color:#90a4ae;margin-top:3px">de ${mx} pontos possíveis</div>
+        <div style="margin-top:12px;height:10px;background:#f0f0f0;border-radius:5px;overflow:hidden">
+          <div style="height:100%;width:${pct}%;background:${EXP.col};border-radius:5px"></div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:14px;background:${EXP.hbg};border:none;color:white">
+        <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px">Fases completadas</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          ${EXP.phases.map(p=>`<div style="background:rgba(255,255,255,.15);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600;color:white">${p.icon} ${p.title}</div>`).join('')}
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <button class="btn" onclick="loadExp('${EXP.id}')" style="background:${EXP.col};color:white;font-size:15px;padding:13px">🔄 Repetir Expedição</button>
+        <button class="btn" onclick="renderHub()" style="background:white;color:${EXP.col};border:2px solid ${EXP.col}55;font-size:14px;padding:11px">🗺️ Escolher Outra Expedição</button>
+      </div>
+      <div style="text-align:center;margin-top:22px;font-size:11px;color:#b0bec5">🌿 Expedições Pantaneiras — UNEMAT Cáceres-MT</div>
+    </div>
+  </div>`);
+}
+
+/* ══════════ ACTIONS ══════════ */
+window.sel=i=>{
+  if(G.ch!==null)return;
+  const c=EXP.phases[G.ph].cs[i];
+  G.ch=i; G.score+=c.p; renderFeedback();
+};
+window.next=()=>{
+  G.ph++; G.ch=null;
+  if(G.ph>=EXP.phases.length) renderEnding();
+  else renderPhase();
+};
+window.loadExp=loadExp;
+window.renderHub=renderHub;
+
+renderHub();
+</script>
+</body>
+</html>
